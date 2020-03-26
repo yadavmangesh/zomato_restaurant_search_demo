@@ -1,6 +1,6 @@
-package com.mangesh.sugerbox
+package com.mangesh.myglamm
 
-import com.mangesh.sugerbox.Model.Restaurant
+import com.mangesh.myglamm.Model.Restaurant
 import org.json.JSONArray
 import org.json.JSONObject
 

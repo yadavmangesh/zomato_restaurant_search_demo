@@ -1,4 +1,4 @@
-package com.mangesh.sugerbox.Activity
+package com.mangesh.myglamm.Activity
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResultCallback
 import com.google.android.gms.location.*
-import com.mangesh.sugerbox.R
-import com.mangesh.sugerbox.RestaurantApplication
-import com.mangesh.sugerbox.ViewModel.MainActivityViewModel
-import com.mangesh.sugerbox.adapter.RestaurantAdapter
-import com.mangesh.sugerbox.serivce.RestaurantsNearBy
+import com.mangesh.myglamm.R
+import com.mangesh.myglamm.RestaurantApplication
+import com.mangesh.myglamm.ViewModel.MainActivityViewModel
+import com.mangesh.myglamm.adapter.RestaurantAdapter
+import com.mangesh.myglamm.serivce.RestaurantsNearBy
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -79,7 +79,10 @@ class MainActivity : AppCompatActivity() {
             5 -> when (resultCode) {
                 Activity.RESULT_OK -> {
                     Log.d("MainActivity", "User agreed to make required location settings changes.")
-                    restaurantsNearBy.getLocation()?.let { viewModel.getNearByRestaurants(it) }
+                    restaurantsNearBy.getLocation()?.let {
+                        Log.d("MainActivity", "location "+it.toString())
+                        viewModel.getNearByRestaurants(it)
+                    }
 
 
                 }

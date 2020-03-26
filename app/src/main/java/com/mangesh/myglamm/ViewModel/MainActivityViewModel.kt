@@ -1,19 +1,11 @@
-package com.mangesh.sugerbox.ViewModel
+package com.mangesh.myglamm.ViewModel
 
-import android.app.Activity
 import android.app.Application
-import android.content.Context
-import android.content.IntentSender
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.ResultCallback
-import com.google.android.gms.location.*
-import com.mangesh.sugerbox.Model.Restaurant
-import com.mangesh.sugerbox.Repository.NetWorkRepository
-import com.mangesh.sugerbox.serivce.RestaurantsNearBy
+import com.mangesh.myglamm.Model.Restaurant
+import com.mangesh.myglamm.Repository.NetWorkRepository
 
 class MainActivityViewModel constructor(application: Application):AndroidViewModel(application){
 

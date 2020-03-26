@@ -1,4 +1,4 @@
-package com.mangesh.sugerbox
+package com.mangesh.myglamm
 
 import org.junit.Test
 

@@ -1,15 +1,14 @@
-package com.mangesh.sugerbox.adapter
+package com.mangesh.myglamm.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.mangesh.sugerbox.Model.Restaurant
-import com.mangesh.sugerbox.R
+import com.mangesh.myglamm.Model.Restaurant
+import com.mangesh.myglamm.R
 import kotlinx.android.synthetic.main.restaurant_item.view.*
 
 class RestaurantAdapter(val context: Context, private val restaurantList:MutableList<Restaurant>):

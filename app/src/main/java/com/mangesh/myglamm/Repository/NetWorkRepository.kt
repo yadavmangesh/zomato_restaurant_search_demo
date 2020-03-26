@@ -1,17 +1,14 @@
-package com.mangesh.sugerbox.Repository
+package com.mangesh.myglamm.Repository
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
-import com.mangesh.sugerbox.ApiReponseListener
-import com.mangesh.sugerbox.Model.Restaurant
-import com.mangesh.sugerbox.Utils
-import com.mangesh.sugerbox.VolleyHelper
+import com.mangesh.myglamm.ApiReponseListener
+import com.mangesh.myglamm.Model.Restaurant
+import com.mangesh.myglamm.Utils
+import com.mangesh.myglamm.VolleyHelper
 
 class NetWorkRepository(context: Context) {
 

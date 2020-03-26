@@ -1,12 +1,10 @@
-package com.mangesh.sugerbox.serivce
+package com.mangesh.myglamm.serivce
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Service
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -14,9 +12,13 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.IBinder
-import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 
 
 class RestaurantsNearBy(private val context: Context): Service(),LocationListener {
@@ -76,13 +78,16 @@ class RestaurantsNearBy(private val context: Context): Service(),LocationListene
                         requestPermission()
 
                     } else {
-                        loc= requestLocation(LocationManager.NETWORK_PROVIDER)
+                        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this)
 
+                        if (locationManager != null) {
+                            loc = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                        }
                     }
 
                 }
 
-                if (checkGPS) {
+               else if (checkGPS) {
 
                     if (ActivityCompat.checkSelfPermission(context , Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -90,7 +95,11 @@ class RestaurantsNearBy(private val context: Context): Service(),LocationListene
                         requestPermission()
 
                     } else {
-                        loc= requestLocation(LocationManager.GPS_PROVIDER)
+                        locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this)
+
+                        if (locationManager != null) {
+                            loc = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                        }
 
                     }
 
@@ -102,21 +111,21 @@ class RestaurantsNearBy(private val context: Context): Service(),LocationListene
 
         } catch (e: Exception) {
             e.printStackTrace()
-        }finally {
-            return loc
         }
+
+        return loc
 
 
     }
 
-  
+
     @SuppressLint("MissingPermission")
     private fun requestLocation(provider:String): Location? {
 
-        locationManager!!.requestLocationUpdates(provider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this)
+        locationManager?.requestLocationUpdates(provider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this)
 
         if (locationManager != null) {
-            loc = locationManager?.getLastKnownLocation(provider)!!
+            loc = locationManager?.getLastKnownLocation(provider)
             if (loc != null) {
                 latitude = loc?.latitude
                 longitude = loc?.longitude
@@ -132,31 +141,12 @@ class RestaurantsNearBy(private val context: Context): Service(),LocationListene
                 Manifest.permission.ACCESS_FINE_LOCATION),2)
     }
 
-    fun getLongit(): Double ?{
-        if (loc != null) {
-            longitude = loc?.longitude
-        }
-        return longitude
-    }
-
-    fun getLat(): Double? {
-        if (loc != null) {
-            latitude = loc?.latitude
-        }
-        return latitude
-    }
-
-    fun canGetLocation(): Boolean {
-        return this.canGetLocation
-    }
-
-
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
 
     override fun onLocationChanged(location: Location) {
-
+       loc=location
     }
 
     override fun onStatusChanged(s: String, i: Int, bundle: Bundle) {
